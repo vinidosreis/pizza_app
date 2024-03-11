@@ -13,18 +13,24 @@ class FirebaseUserRepo implements UserRepository {
   }) : _firebaseAuth = firebaseAuth ?? FirebaseAuth.instance;
 
   @override
-  Stream<MyUser?> get user {
-    return _firebaseAuth.authStateChanges().flatMap((firebaseUser) async* {
-      if(firebaseUser == null) {
-        yield MyUser.empty;
-      } else {
-        yield await usersCollection
+Stream<MyUser?> get user {
+  return _firebaseAuth.authStateChanges().flatMap((firebaseUser) async* {
+    if (firebaseUser == null) {
+      yield MyUser.empty;
+    } else {
+      yield await usersCollection
           .doc(firebaseUser.uid)
           .get()
-          .then((value) => MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!)));
-      }
-    });
-  }
+          .then((value) {
+        if (value.data() != null) {
+          return MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!));
+        } else {
+          return MyUser.empty;
+        }
+      });
+    }
+  });
+}
 
   @override
   Future<void> signIn(String email, String password) async {
@@ -67,5 +73,5 @@ class FirebaseUserRepo implements UserRepository {
       log(e.toString());
       rethrow;
     }
-  } 
+  }
 }
