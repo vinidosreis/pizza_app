@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pizza_app/app.dart';
 import 'package:pizza_app/screens/auth/blocs/sign_in_bloc/sign_in_bloc.dart';
+import 'package:pizza_app/screens/home/views/details_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -45,42 +47,125 @@ class HomeScreen extends StatelessWidget {
             ),
           itemCount: 8, 
           itemBuilder: (context, int i) {
-            return Container(
-              decoration: BoxDecoration(
-                color: Colors.white,
+            return Material(
+              elevation: 3,
+              color: Colors.white,
+              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+              child: InkWell(
                 borderRadius: BorderRadius.circular(20),
-                boxShadow: [
-                  BoxShadow(
-                    color: Colors.grey.shade300,
-                    blurRadius: 5,
-                    offset: Offset(3, 3)
-                  )
-                ]
-              ),
-              child: Column(
-                children: [
-                  Image.asset('assets/1.png'),
-                  Row(
-                    children: [
-                      Container(
-                        decoration: BoxDecoration(
-                          color: Colors.green,
-                          borderRadius: BorderRadius.circular(30)
-                        ),
-                        child: Text(
-                          'NON VEGGIE',
-                          style: TextStyle(
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 10
-                          ),
-                        ),
+                onTap: () {
+                  Navigator.push(
+                    context, 
+                    MaterialPageRoute<void>(
+                      builder: (BuildContext context) => const DetailsScreen(),
                       )
+                    );
+                },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Image.asset('assets/1.png'),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                        child: Row(
+                          children: [
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.green,
+                                borderRadius: BorderRadius.circular(30)
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                child: Text(
+                                  'NON-VEG',
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 8
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.green.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(30)
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+                                child: Text(
+                                  '🌶️ Balance',
+                                  style: TextStyle(
+                                    color: Colors.green,
+                                    fontWeight: FontWeight.w800,
+                                    fontSize: 8
+                                  ),
+                                ),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(height: 8),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          'Cheesy Marvel',
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold
+                          ),
+                        )
+                        ),
+                         Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Text(
+                          'Your pizza, your rules, we have the best taste!',
+                          style: TextStyle(
+                            color: Colors.grey.shade700,
+                            fontSize: 10,
+                          ),
+                        )
+                        ),
+                        Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 12),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Row(
+                              children: [
+                                Text(
+                              'R\$ 12',
+                              style: TextStyle(
+                                color: Theme.of(context).colorScheme.primary,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w700
+                              ),
+                            ),
+                            const SizedBox(width: 5,),
+                              Text(
+                              'R\$ 16',
+                              style: TextStyle(
+                                color: Colors.grey.shade500,
+                                fontSize: 12,
+                                fontWeight: FontWeight.w700,
+                                decoration: TextDecoration.lineThrough
+                              ),
+                            ),
+                              ],
+                            ),
+                            IconButton(
+                              onPressed: () {}, 
+                              icon: const Icon(CupertinoIcons.add_circled_solid)
+                              )
+                          ],
+                        )
+                        )
                     ],
-                  )
-                ],
-              ),
-            );
+                  ),
+                ),
+              );
           }
           ),
       ),
