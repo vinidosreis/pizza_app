@@ -1,5 +1,5 @@
-import '../entities/pizza_entity.dart';
-import 'macros.dart';
+import '../entities/entities.dart';
+import 'models.dart';
 
 class Pizza {
   String pizzaId;
